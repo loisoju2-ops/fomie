@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caregiver Application - Step 2</title>
+    <style>
+        /* General Page Reset */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Main Container */
+        .form-container {
+            display: flex;
+            width: 1100px;
+            max-width: 100%;
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
+            min-height: 700px;
+            overflow: hidden;
+            border-radius: 10px; /* Slight rounding on the overall card */
+        }
+
+        /* Left Blue Panel */
+        .left-panel {
+            width: 35%;
+            background: #1a75e8; /* Solid blue */
+            color: white;
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            border-top-right-radius: 100px;
+            border-bottom-right-radius: 100px;
+            z-index: 2;
+        }
+
+        /* --- UPDATED LOGO SECTION --- */
+        .logo-section {
+            background-color: white; /* White box for the logo */
+            padding: 20px 25px;
+            border-radius: 10px;
+            margin-bottom: 60px;
+            margin-top: 10px;
+            width: 100%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo-line-1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 5px;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-line-1 .blue-text {
+            color: #1a3c8a; /* Dark Blue */
+        }
+
+        .logo-line-1 .green-text {
+            color: #2e8b2e; /* Dark Green */
+        }
+
+        /* STAFFING text with lines */
+        .logo-line-2 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 5px;
+        }
+
+        .logo-line-2 .purple-text {
+            color: #6a1b9a; /* Purple */
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .logo-line-2 .line-left,
+        .logo-line-2 .line-right {
+            height: 2px;
+            width: 25px;
+            background-color: #6a1b9a; /* Purple lines */
+        }
+
+        /* Tagline */
+        .logo-tagline {
+            font-size: 0.9rem;
+            font-style: italic;
+            color: #000; /* Black */
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        /* Bottom tagline with lines */
+        .logo-line-3 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .logo-line-3 .green-small-text {
+            color: #2e8b2e; /* Green */
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .logo-line-3 .line-left-small,
+        .logo-line-3 .line-right-small {
+            height: 1px;
+            width: 15px;
+            background-color: #2e8b2e; /* Green lines */
+        }
+        /* --- END LOGO SECTION --- */
+
+        .headline-section h2 {
+            font-size: 2.2rem;
+            line-height: 1.2;
+            margin-bottom: 15px;
+            font-weight: 700;
+            color: white;
+        }
+
+        /* Right White Panel */
+        .right-panel {
+            width: 65%;
+            padding: 60px 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Form Content Styling */
+        h1 {
+            color: #000;
+            margin-bottom: 40px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-align: left;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px 30px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-group label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        .form-group input, 
+        .form-group select {
+            padding: 14px 16px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+            color: #333;
+            background-color: #f9f9f9;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+            width: 100%;
+        }
+
+        .form-group input::placeholder {
+            color: #999;
+        }
+
+        .form-group input:focus, 
+        .form-group select:focus {
+            border-color: #1a75e8;
+            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(26, 117, 232, 0.1);
+        }
+
+        /* Submit Button */
+        .btn-submit {
+            display: inline-block;
+            background: #1a75e8;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            border: none;
+            padding: 16px 50px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            align-self: flex-start;
+            margin-top: 20px;
+            transition: background-color 0.2s, transform 0.2s;
+            box-shadow: 0 4px 6px rgba(26, 117, 232, 0.2);
+        }
+
+        .btn-submit:hover {
+            background-color: #0d5bbd;
+            transform: translateY(-1px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 850px) {
+            .form-container {
+                flex-direction: column;
+                width: 100%;
+                box-shadow: none;
+                border-radius: 0;
+            }
+            .left-panel {
+                width: 100%;
+                border-radius: 0;
+                padding: 40px 20px;
+            }
+            .logo-section {
+                margin-bottom: 30px;
+            }
+            .headline-section h2 {
+                font-size: 1.8rem;
+            }
+            .right-panel {
+                width: 100%;
+                padding: 40px 25px;
+            }
+            h1 {
+                text-align: center;
+            }
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+            .btn-submit {
+                width: 100%;
+                align-self: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <!-- Left Side Panel -->
+        <div class="left-panel">
+            <!-- UPDATED LOGO SECTION to match image exactly -->
+            <div class="logo-section">
+                <div class="logo-line-1">
+                    <span class="blue-text">Family</span> <span class="green-text">Caregiver</span>
+                </div>
+                <div class="logo-line-2">
+                    <span class="line-left"></span>
+                    <span class="purple-text">STAFFING</span>
+                    <span class="line-right"></span>
+                </div>
+                <div class="logo-tagline">
+                    Compassionate People. Quality Care.
+                </div>
+                <div class="logo-line-3">
+                    <span class="line-left-small"></span>
+                    <span class="green-small-text">WHEN YOU NEED IT MOST</span>
+                    <span class="line-right-small"></span>
+                </div>
+            </div>
+
+            <div class="headline-section">
+                <h2>Enter your caregiver's information</h2>
+            </div>
+        </div>
+
+        <!-- Right Side Panel (Form) -->
+        <div class="right-panel">
+            <h1>Enter caregiver's information below</h1>
+
+            <form id="caregiverInfoForm">
+                <div class="form-grid">
+                    <!-- First Name -->
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" name="firstName" placeholder="Enter first name" required>
+                    </div>
+
+                    <!-- Last Name -->
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" name="lastName" placeholder="Enter last name" required>
+                    </div>
+
+                    <!-- Phone Number -->
+                    <div class="form-group">
+                        <label for="phone">Phone #</label>
+                        <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000" required>
+                    </div>
+
+                    <!-- Email Address -->
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                    </div>
+
+                    <!-- Who do you provide care for? (Full Width) -->
+                    <div class="form-group full-width">
+                        <label for="careRecipient">Who do you provide care for?</label>
+                        <select id="careRecipient" name="careRecipient" required>
+                            <option value="" disabled selected>Select an option</option>
+                            <option value="father">My Father</option>
+                            <option value="mother">My Mother</option>
+                            <option value="grandfather">My Grandfather</option>
+                            <option value="grandmother">My Grandmother</option>
+                            <option value="mother-in-law">My Mother-in-law</option>
+                            <option value="father-in-law">My Father-in-law</option>
+                            <option value="husband">My Husband</option>
+                            <option value="wife">My Wife</option>
+                            <option value="son">My Son</option>
+                            <option value="daughter">My Daughter</option>
+                            <option value="brother">My Brother</option>
+                            <option value="sister">My Sister</option>
+                            <option value="male-relative">My Male Relative</option>
+                            <option value="female-relative">My Female Relative</option>
+                            <option value="female-partner">My Female Partner</option>
+                            <option value="male-partner">My Male Partner</option>
+                            <option value="male-neighbor">My Male Neighbor</option>
+                            <option value="female-neighbor">My Female Neighbor</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <a href="index2.html" class="btn-submit">Next &rarr;</a>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

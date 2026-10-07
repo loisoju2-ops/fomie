@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caregiver Application - Step 4</title>
+    <style>
+        /* General Page Reset */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Main Container */
+        .form-container {
+            display: flex;
+            width: 1100px;
+            max-width: 100%;
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
+            min-height: 700px;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        /* Left Blue Panel */
+        .left-panel {
+            width: 35%;
+            background: #1a75e8; /* Solid blue matching image */
+            color: white;
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            border-top-right-radius: 100px;
+            border-bottom-right-radius: 100px;
+            z-index: 2;
+        }
+
+        /* --- EXACT LOGO SECTION --- */
+        .logo-section {
+            background-color: white;
+            padding: 20px 25px;
+            border-radius: 10px;
+            margin-bottom: 80px; 
+            margin-top: 10px;
+            width: 100%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo-line-1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 5px;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-line-1 .blue-text {
+            color: #1a3c8a; /* Dark Blue */
+        }
+
+        .logo-line-1 .green-text {
+            color: #2e8b2e; /* Dark Green */
+        }
+
+        /* STAFFING text with lines */
+        .logo-line-2 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 5px;
+        }
+
+        .logo-line-2 .purple-text {
+            color: #6a1b9a; /* Purple */
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .logo-line-2 .line-left,
+        .logo-line-2 .line-right {
+            height: 2px;
+            width: 25px;
+            background-color: #6a1b9a; /* Purple lines */
+        }
+
+        /* Tagline */
+        .logo-tagline {
+            font-size: 0.9rem;
+            font-style: italic;
+            color: #000; /* Black */
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        /* Bottom tagline with lines */
+        .logo-line-3 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .logo-line-3 .green-small-text {
+            color: #2e8b2e; /* Green */
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .logo-line-3 .line-left-small,
+        .logo-line-3 .line-right-small {
+            height: 1px;
+            width: 15px;
+            background-color: #2e8b2e; /* Green lines */
+        }
+        /* --- END LOGO SECTION --- */
+
+        .headline-section {
+            width: 100%;
+            padding: 0 10px;
+        }
+
+        .headline-section h2 {
+            font-size: 1.8rem;
+            line-height: 1.4;
+            margin-bottom: 15px;
+            font-weight: 700;
+            color: white;
+            text-align: left; 
+        }
+
+        /* Right White Panel */
+        .right-panel {
+            width: 65%;
+            padding: 80px 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Form Content Styling */
+        h1 {
+            color: #000;
+            margin-bottom: 40px;
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center; 
+            line-height: 1.3;
+        }
+
+        .consent-text-box {
+            margin-bottom: 40px;
+            font-size: 1.15rem;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .consent-text-box p {
+            margin-bottom: 25px;
+        }
+        
+        .consent-text-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Signature Button */
+        .btn-signature {
+            display: block;
+            width: 100%;
+            background: #007bff; 
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 4px; 
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.2s, transform 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn-signature:hover {
+            background-color: #0056b3;
+            transform: translateY(-1px);
+        }
+
+        /* --- THANK YOU SCREEN STYLES --- */
+        .thank-you-screen {
+            display: none; 
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            height: 100%;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background-color: #e6f7eb;
+            color: #28a745;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin-bottom: 25px;
+        }
+
+        .thank-you-screen h2 {
+            color: #333;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .thank-you-screen p {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 35px;
+            max-width: 400px;
+        }
+
+        /* Back to Home Button */
+        .btn-home {
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border: none;
+            padding: 15px 45px;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: inline-block;
+        }
+
+        .btn-home:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(20, 136, 204, 0.4);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 850px) {
+            .form-container {
+                flex-direction: column;
+                width: 100%;
+                box-shadow: none;
+                border-radius: 0;
+            }
+            .left-panel {
+                width: 100%;
+                border-radius: 0;
+                padding: 40px 20px;
+            }
+            .logo-section {
+                margin-bottom: 30px;
+            }
+            .headline-section h2 {
+                font-size: 1.5rem;
+                text-align: center;
+            }
+            .right-panel {
+                width: 100%;
+                padding: 40px 25px;
+            }
+            h1 {
+                text-align: center;
+                font-size: 1.6rem;
+            }
+            .consent-text-box {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <!-- Left Side Panel -->
+        <div class="left-panel">
+            <!-- EXACT LOGO MATCHING THE IMAGE -->
+            <div class="logo-section">
+                <div class="logo-line-1">
+                    <span class="blue-text">Family</span> <span class="green-text">Caregiver</span>
+                </div>
+                <div class="logo-line-2">
+                    <span class="line-left"></span>
+                    <span class="purple-text">STAFFING</span>
+                    <span class="line-right"></span>
+                </div>
+                <div class="logo-tagline">
+                    Compassionate People. Quality Care.
+                </div>
+                <div class="logo-line-3">
+                    <span class="line-left-small"></span>
+                    <span class="green-small-text">WHEN YOU NEED IT MOST</span>
+                    <span class="line-right-small"></span>
+                </div>
+            </div>
+
+            <!-- Text matching the image exactly -->
+            <div class="headline-section">
+                <h2>Client or Authorized Representative should complete Letter of Consent and sign.</h2>
+            </div>
+        </div>
+
+        <!-- Right Side Panel -->
+        <div class="right-panel">
+
+            <!-- FORM SECTION -->
+            <div id="formSection">
+                <!-- Heading matching the image exactly -->
+                <h1>Client Authorization and Consent to Communicate with Health Insurance Plans</h1>
+
+                <form id="consentForm">
+                    
+                    <!-- Consent Text Box (Text matching image exactly) -->
+                    <div class="consent-text-box">
+                        <p>This consent allows Family Caregiver Staffing Agency to communicate with the client’s health plan about eligibility, benefits, authorizations, assessments, referrals, claims, and Home Help services.</p>
+                        <p>Please, read through and sign Consent to allow us to communicate with Health Insurance.</p>
+                    </div>
+
+                    <!-- Submit Button matching the blue bar in the image (Signature input removed) -->
+                    <button type="submit" class="btn-signature">Signature of Client or Authorized Representative</button>
+                </form>
+            </div>
+
+            <!-- THANK YOU SECTION -->
+            <div id="thankYouSection" class="thank-you-screen">
+                <div class="success-icon">✓</div>
+                <h2>Thank You!</h2>
+                <p>All your information has been received and we will reach you in less than 24 hours.</p>
+                
+                <!-- Back to Home Button -->
+                <a href="index.html" class="btn-home">Back to Home Page</a>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Handle form submission for Step 4
+        document.getElementById('consentForm').addEventListener('submit', function(e) {
+            e.preventDefault(); 
+            
+            // 1. Hide the form section
+            document.getElementById('formSection').style.display = 'none';
+            
+            // 2. Show the Thank You screen
+            document.getElementById('thankYouSection').style.display = 'flex';
+        });
+    </script>
+</body>
+</html>

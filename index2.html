@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caregiver Application - Step 3</title>
+    <style>
+        /* General Page Reset */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Main Container */
+        .form-container {
+            display: flex;
+            width: 1100px;
+            max-width: 100%;
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
+            min-height: 700px;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        /* Left Blue Panel */
+        .left-panel {
+            width: 35%;
+            background: #1a75e8; /* Solid blue matching image */
+            color: white;
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            border-top-right-radius: 100px;
+            border-bottom-right-radius: 100px;
+            z-index: 2;
+        }
+
+        /* --- EXACT LOGO SECTION FROM IMAGE --- */
+        .logo-section {
+            background-color: white;
+            padding: 20px 25px;
+            border-radius: 10px;
+            margin-bottom: 60px;
+            margin-top: 10px;
+            width: 100%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo-line-1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 5px;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-line-1 .blue-text {
+            color: #1a3c8a; /* Dark Blue */
+        }
+
+        .logo-line-1 .green-text {
+            color: #2e8b2e; /* Dark Green */
+        }
+
+        /* STAFFING text with lines */
+        .logo-line-2 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 5px;
+        }
+
+        .logo-line-2 .purple-text {
+            color: #6a1b9a; /* Purple */
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .logo-line-2 .line-left,
+        .logo-line-2 .line-right {
+            height: 2px;
+            width: 25px;
+            background-color: #6a1b9a; /* Purple lines */
+        }
+
+        /* Tagline */
+        .logo-tagline {
+            font-size: 0.9rem;
+            font-style: italic;
+            color: #000; /* Black */
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        /* Bottom tagline with lines */
+        .logo-line-3 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .logo-line-3 .green-small-text {
+            color: #2e8b2e; /* Green */
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .logo-line-3 .line-left-small,
+        .logo-line-3 .line-right-small {
+            height: 1px;
+            width: 15px;
+            background-color: #2e8b2e; /* Green lines */
+        }
+        /* --- END LOGO SECTION --- */
+
+        .headline-section h2 {
+            font-size: 2.2rem;
+            line-height: 1.2;
+            margin-bottom: 15px;
+            font-weight: 700;
+            color: white;
+        }
+
+        /* Right White Panel */
+        .right-panel {
+            width: 65%;
+            padding: 60px 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Form Content Styling */
+        h1 {
+            color: #000;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-align: left;
+        }
+
+        .form-section-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            color: #888;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px 25px; 
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-group label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        /* Inputs matching the clean look */
+        .form-group input, 
+        .form-group select {
+            padding: 14px 16px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+            color: #333;
+            background-color: #f9f9f9;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+            width: 100%;
+        }
+
+        .form-group input::placeholder {
+            color: #999;
+        }
+
+        .form-group input:focus, 
+        .form-group select:focus {
+            border-color: #1a75e8;
+            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(26, 117, 232, 0.1);
+        }
+
+        /* Read-only / Pre-filled state */
+        .form-group input[readonly] {
+            background-color: #eef2f5;
+            color: #666;
+            cursor: not-allowed;
+            border-color: #ddd;
+        }
+
+        /* Submit Button */
+        .btn-submit {
+            display: inline-block;
+            background: #1a75e8;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            border: none;
+            padding: 16px 50px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            align-self: flex-start;
+            margin-top: 20px;
+            transition: background-color 0.2s, transform 0.2s;
+            box-shadow: 0 4px 6px rgba(26, 117, 232, 0.2);
+        }
+
+        .btn-submit:hover {
+            background-color: #0d5bbd;
+            transform: translateY(-1px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 850px) {
+            .form-container {
+                flex-direction: column;
+                width: 100%;
+                box-shadow: none;
+                border-radius: 0;
+            }
+            .left-panel {
+                width: 100%;
+                border-radius: 0;
+                padding: 40px 20px;
+            }
+            .logo-section {
+                margin-bottom: 30px;
+            }
+            .headline-section h2 {
+                font-size: 1.8rem;
+            }
+            .right-panel {
+                width: 100%;
+                padding: 40px 25px;
+            }
+            h1 {
+                text-align: center;
+            }
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+            .btn-submit {
+                width: 100%;
+                align-self: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <!-- Left Side Panel -->
+        <div class="left-panel">
+            <!-- EXACT LOGO MATCHING THE IMAGE -->
+            <div class="logo-section">
+                <div class="logo-line-1">
+                    <span class="blue-text">Family</span> <span class="green-text">Caregiver</span>
+                </div>
+                <div class="logo-line-2">
+                    <span class="line-left"></span>
+                    <span class="purple-text">STAFFING</span>
+                    <span class="line-right"></span>
+                </div>
+                <div class="logo-tagline">
+                    Compassionate People. Quality Care.
+                </div>
+                <div class="logo-line-3">
+                    <span class="line-left-small"></span>
+                    <span class="green-small-text">WHEN YOU NEED IT MOST</span>
+                    <span class="line-right-small"></span>
+                </div>
+            </div>
+
+            <div class="headline-section">
+                <h2>Enter your caregiver's information</h2>
+            </div>
+        </div>
+
+        <!-- Right Side Panel (Step 3 Form) -->
+        <div class="right-panel">
+            <h1>Enter Your Mother’s Information</h1>
+
+            <form id="clientInfoForm">
+                
+                <div class="form-section-title">Client's Information</div>
+
+                <div class="form-grid">
+                    <!-- First Name -->
+                    <div class="form-group">
+                        <label for="clientFirstName">First Name</label>
+                        <input type="text" id="clientFirstName" name="clientFirstName" placeholder="Enter first name" required>
+                    </div>
+
+                    <!-- Last Name -->
+                    <div class="form-group">
+                        <label for="clientLastName">Last Name</label>
+                        <input type="text" id="clientLastName" name="clientLastName" placeholder="Enter last name" required>
+                    </div>
+
+                    <!-- Phone Number -->
+                    <div class="form-group">
+                        <label for="clientPhone">Phone #</label>
+                        <input type="tel" id="clientPhone" name="clientPhone" placeholder="(555) 000-0000" required>
+                    </div>
+
+                    <!-- Date of Birth -->
+                    <div class="form-group">
+                        <label for="clientDOB">Date of Birth</label>
+                        <input type="date" id="clientDOB" name="clientDOB" required>
+                    </div>
+
+                    <!-- Address (Full Width) -->
+                    <div class="form-group full-width">
+                        <label for="clientAddress">Address</label>
+                        <input type="text" id="clientAddress" name="clientAddress" placeholder="Street Address" required>
+                    </div>
+
+                    <!-- City -->
+                    <div class="form-group">
+                        <label for="clientCity">City</label>
+                        <input type="text" id="clientCity" name="clientCity" placeholder="City" required>
+                    </div>
+
+                    <!-- Zip Code -->
+                    <div class="form-group">
+                        <label for="clientZip">Zip Code</label>
+                        <input type="text" id="clientZip" name="clientZip" placeholder="Zip Code" required>
+                    </div>
+
+                    <!-- County -->
+                    <div class="form-group">
+                        <label for="clientCounty">County</label>
+                        <input type="text" id="clientCounty" name="clientCounty" placeholder="County" required>
+                    </div>
+
+                    <!-- State (Pre-filled Michigan) -->
+                    <div class="form-group">
+                        <label for="clientState">State</label>
+                        <input type="text" id="clientState" name="clientState" value="Michigan" readonly>
+                    </div>
+                </div>
+
+                <div class="form-section-title" style="margin-top: 15px;">Insurance Details</div>
+
+                <div class="form-grid">
+                    <!-- Insurance Plan -->
+                    <div class="form-group">
+                        <label for="insurancePlan">What Insurance Plan does your mother have?</label>
+                        <select id="insurancePlan" name="insurancePlan" required>
+                            <option value="" disabled>Select an option</option>
+                            <option value="medicare">Medicare</option>
+                            <option value="medicaid">Medicaid</option>
+                            <option value="medicare-medicaid">Medicare and Medicaid</option>
+                            <option value="molina">Molina</option>
+                            <option value="wellcare-meridian">WellCare by Meridian</option>
+                            <option value="humana" selected>Humana</option>
+                            <option value="priority-health">Priority Health</option>
+                            <option value="amerihealth">AmeriHealth</option>
+                            <option value="aetna">Aetna</option>
+                            <option value="blue-cross-complete">Blue Cross Complete</option>
+                            <option value="united-health">United Health</option>
+                            <option value="hap-caresource">HAP CareSource</option>
+                            <option value="zing">Zing</option>
+                            <option value="private-pay">Private Pay</option>
+                        </select>
+                    </div>
+
+                    <!-- Insurance Member ID -->
+                    <div class="form-group">
+                        <label for="memberId">Insurance Member ID #</label>
+                        <input type="text" id="memberId" name="memberId" placeholder="Enter Member ID" required>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <a href="index3.html" class="btn-submit">Next &rarr;</a>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
